@@ -8,6 +8,15 @@
         "revision" : "6c788e2d34ad93f786abaf4fbb69662a9e045276",
         "version" : "2.2.2"
       }
+    },
+    {
+      "identity" : "transcoding?tab=readme-ov-file",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/finnvoor/Transcoding?tab=readme-ov-file",
+      "state" : {
+        "revision" : "72fe5ef3054eb0e1639ae9a9b49a92811fb251b2",
+        "version" : "0.0.1"
+      }
     }
   ],
   "version" : 2

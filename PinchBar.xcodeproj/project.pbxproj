@@ -20,6 +20,9 @@
 		112CB03F2BB4B99A0073F53D /* SwiftIP in Frameworks */ = {isa = PBXBuildFile; productRef = 112CB03E2BB4B99A0073F53D /* SwiftIP */; };
 		112CB0412BB5305E0073F53D /* NWParameters+Init.swift in Sources */ = {isa = PBXBuildFile; fileRef = 112CB0402BB5305E0073F53D /* NWParameters+Init.swift */; };
 		112CB0432BB530820073F53D /* AnnexBProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 112CB0422BB530810073F53D /* AnnexBProtocol.swift */; };
+		112CB0462BB5361D0073F53D /* Transcoding in Frameworks */ = {isa = PBXBuildFile; productRef = 112CB0452BB5361D0073F53D /* Transcoding */; };
+		112CB0492BB536280073F53D /* Transcoding in Frameworks */ = {isa = PBXBuildFile; productRef = 112CB0482BB536280073F53D /* Transcoding */; };
+		112CB04B2BB536790073F53D /* Client.swift in Sources */ = {isa = PBXBuildFile; fileRef = 112CB04A2BB536790073F53D /* Client.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -39,6 +42,7 @@
 		112CB03B2BB4A80F0073F53D /* Server.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Server.swift; sourceTree = "<group>"; };
 		112CB0402BB5305E0073F53D /* NWParameters+Init.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NWParameters+Init.swift"; sourceTree = "<group>"; };
 		112CB0422BB530810073F53D /* AnnexBProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnexBProtocol.swift; sourceTree = "<group>"; };
+		112CB04A2BB536790073F53D /* Client.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Client.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -47,6 +51,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				112CB0162BB4A56B0073F53D /* RealityKitContent in Frameworks */,
+				112CB0492BB536280073F53D /* Transcoding in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -55,6 +60,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				112CB03F2BB4B99A0073F53D /* SwiftIP in Frameworks */,
+				112CB0462BB5361D0073F53D /* Transcoding in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -68,6 +74,7 @@
 				112CB0132BB4A56B0073F53D /* Packages */,
 				112CB02B2BB4A5DD0073F53D /* PinchBar Mac */,
 				112CB0112BB4A56B0073F53D /* Products */,
+				112CB0472BB536280073F53D /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -85,6 +92,7 @@
 			children = (
 				112CB0172BB4A56B0073F53D /* PinchBarApp.swift */,
 				112CB0192BB4A56B0073F53D /* ContentView.swift */,
+				112CB04A2BB536790073F53D /* Client.swift */,
 				112CB01B2BB4A56C0073F53D /* Assets.xcassets */,
 				112CB0202BB4A56C0073F53D /* Info.plist */,
 				112CB01D2BB4A56C0073F53D /* Preview Content */,
@@ -131,6 +139,13 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
+		112CB0472BB536280073F53D /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -149,6 +164,7 @@
 			name = PinchBar;
 			packageProductDependencies = (
 				112CB0152BB4A56B0073F53D /* RealityKitContent */,
+				112CB0482BB536280073F53D /* Transcoding */,
 			);
 			productName = PinchBar;
 			productReference = 112CB0102BB4A56B0073F53D /* PinchBar.app */;
@@ -169,6 +185,7 @@
 			name = "PinchBar Mac";
 			packageProductDependencies = (
 				112CB03E2BB4B99A0073F53D /* SwiftIP */,
+				112CB0452BB5361D0073F53D /* Transcoding */,
 			);
 			productName = "PinchBar Mac";
 			productReference = 112CB02A2BB4A5DD0073F53D /* PinchBar Mac.app */;
@@ -203,6 +220,7 @@
 			mainGroup = 112CB0072BB4A56B0073F53D;
 			packageReferences = (
 				112CB03D2BB4B99A0073F53D /* XCRemoteSwiftPackageReference "SwiftIP" */,
+				112CB0442BB5361D0073F53D /* XCRemoteSwiftPackageReference "Transcoding" */,
 			);
 			productRefGroup = 112CB0112BB4A56B0073F53D /* Products */;
 			projectDirPath = "";
@@ -242,6 +260,7 @@
 			files = (
 				112CB01A2BB4A56B0073F53D /* ContentView.swift in Sources */,
 				112CB0182BB4A56B0073F53D /* PinchBarApp.swift in Sources */,
+				112CB04B2BB536790073F53D /* Client.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -534,6 +553,14 @@
 				minimumVersion = 2.0.0;
 			};
 		};
+		112CB0442BB5361D0073F53D /* XCRemoteSwiftPackageReference "Transcoding" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/finnvoor/Transcoding?tab=readme-ov-file";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.0.1;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -545,6 +572,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 112CB03D2BB4B99A0073F53D /* XCRemoteSwiftPackageReference "SwiftIP" */;
 			productName = SwiftIP;
+		};
+		112CB0452BB5361D0073F53D /* Transcoding */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 112CB0442BB5361D0073F53D /* XCRemoteSwiftPackageReference "Transcoding" */;
+			productName = Transcoding;
+		};
+		112CB0482BB536280073F53D /* Transcoding */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 112CB0442BB5361D0073F53D /* XCRemoteSwiftPackageReference "Transcoding" */;
+			productName = Transcoding;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

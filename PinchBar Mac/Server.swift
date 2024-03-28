@@ -102,7 +102,9 @@ class Server {
 
     func disconnect() {
         connection?.cancel()
+        connection = nil
         listener?.cancel()
+        listener = nil
 
         status = .disconnected
     }

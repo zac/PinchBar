@@ -10,12 +10,22 @@ import RealityKit
 import RealityKitContent
 
 struct ContentView: View {
+    @State private var client = Client()
+
     var body: some View {
         VStack {
-            Model3D(named: "Scene", bundle: realityKitContentBundle)
-                .padding(.bottom, 50)
-
-            Text("Hello, world!")
+            Button {
+                if client.status == .disconnected {
+                    client.startBrowsing()
+                } else {
+                    client.stopBrowsing()
+                }
+            } label: {
+                Text(client.status == .disconnected ? "Start" : "Stop")
+            }
+            List(client.servers, id: \.self) { server in
+                Text(server.name)
+            }
         }
         .padding()
     }
