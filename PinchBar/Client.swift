@@ -8,9 +8,32 @@
 import SwiftUI
 import Network
 import os
+import Transcoding
+import CoreMedia
 
 extension Logger {
     static let client = Logger(subsystem: "io.positron.PinchBar", category: "Client")
+}
+
+extension NWConnection.State {
+    var debugDescription: String {
+        switch self {
+        case .setup:
+            "setup"
+        case .waiting(let error):
+            "waiting - \(error.localizedDescription)"
+        case .preparing:
+            "preparing"
+        case .ready:
+            "ready"
+        case .failed(let error):
+            "failed - \(error.localizedDescription)"
+        case .cancelled:
+            "cancelled"
+        @unknown default:
+            "unknown"
+        }
+    }
 }
 
 struct ServerInfo: Hashable {
@@ -24,7 +47,7 @@ struct ServerInfo: Hashable {
     }
 
     var peerID: UUID {
-        guard let txt = result.endpoint.txtRecord, let peerID = txt[TXTRecordKeys.peer_id], let uuid = UUID(uuidString: peerID) else {
+        guard case let .bonjour(txt) = result.metadata, let peerID = txt[TXTRecordKeys.peer_id], let uuid = UUID(uuidString: peerID) else {
             Logger.client.warning("could not get peerID from endpoint: \(result.endpoint.debugDescription)")
             return UUID()
         }
@@ -37,7 +60,7 @@ struct ServerInfo: Hashable {
 
 @Observable
 class Client {
-    enum Status {
+    enum Status: String {
         case disconnected
         case browsing
         case connecting
@@ -46,9 +69,32 @@ class Client {
 
     var servers: [ServerInfo] = []
     var status: Status = .disconnected
+    let frames: AsyncStream<CMSampleBuffer>
+    private let frameContinuation: AsyncStream<CMSampleBuffer>.Continuation
+
+    func status(for server: ServerInfo) -> Status {
+        guard server.result.endpoint == connection?.endpoint else {
+            return .disconnected
+        }
+
+        return status
+    }
 
     private var browser: NWBrowser?
     private var connection: NWConnection?
+
+    private let videoDecoder = VideoDecoder(config: .init(realTime: true))
+    private let videoDecoderAnnexBAdaptor: VideoDecoderAnnexBAdaptor
+    private var videoDecoderTask: Task<Void, Error>?
+
+    init() {
+        videoDecoderAnnexBAdaptor = VideoDecoderAnnexBAdaptor(
+            videoDecoder: videoDecoder,
+            codec: .hevc
+        )
+
+        (frames, frameContinuation) = AsyncStream<CMSampleBuffer>.makeStream()
+    }
 
     func startBrowsing() {
         if let connection {
@@ -61,8 +107,10 @@ class Client {
 
         servers.removeAll()
 
-        let params = NWParameters(secret: "1234", identity: "abcd")
-        let browser = NWBrowser(for: .bonjourWithTXTRecord(type: "_pinchbar._tcp", domain: nil), using: params)
+        let parameters = NWParameters()
+        parameters.requiredInterfaceType = .wifi
+        parameters.includePeerToPeer = true
+        let browser = NWBrowser(for: .bonjourWithTXTRecord(type: "_pinchbar._tcp", domain: nil), using: parameters)
 
         browser.stateUpdateHandler = { [weak self] state in
             guard let self else { return }
@@ -86,6 +134,75 @@ class Client {
         }
 
         browser.start(queue: .main)
+    }
+
+    func connect(to server: ServerInfo) {
+        stopBrowsing()
+
+        // connect to the server.
+        let connection = NWConnection(to: server.result.endpoint, using: NWParameters(passcode: "1234"))
+
+        connection.stateUpdateHandler = { [weak self] state in
+            guard let self else { return }
+            Logger.client.info("connection state update: \(state.debugDescription)")
+            switch state {
+            case .setup, .waiting, .preparing:
+                self.status = .connecting
+            case .ready:
+                self.status = .connected
+                self.receiveNextMessage()
+            case .cancelled:
+                connection.cancel()
+            default:
+                break
+            }
+        }
+
+        videoDecoderTask = Task { [weak self] in
+            guard let self else { return }
+            Logger.client.trace("videoDecoderTask enter")
+            for await decodedSampleBuffer in videoDecoder.decodedSampleBuffers {
+                frameContinuation.yield(decodedSampleBuffer)
+            }
+            Logger.client.trace("videoDecoderTask exit")
+        }
+
+        connection.start(queue: .main)
+
+        self.connection = connection
+    }
+
+    func disconnect() {
+        if let connection {
+            connection.cancel()
+            self.connection = nil
+        }
+
+        videoDecoderTask?.cancel()
+        startBrowsing()
+    }
+
+    func receiveNextMessage() {
+        Logger.client.log("receiveNextMessage")
+        guard let connection else { return }
+
+        connection.receiveMessage { [weak self] (content, context, isComplete, error) in
+            guard let self else { return }
+            Logger.client.log("connection.receiveMessage")
+            // Extract your message type from the received context.
+            if let message = context?.protocolMetadata(definition: PinchBarProtocol.definition) as? NWProtocolFramer.Message, message.messageType == .newFrame, let data = content {
+                Logger.client.log("got frame! \(message.messageType.rawValue)")
+                self.videoDecoderAnnexBAdaptor.decode(data)
+            } else {
+                Logger.client.info("no correct frame data in context: \(context.debugDescription)")
+            }
+
+            if let error {
+                Logger.client.error("receive message error: \(error.localizedDescription)")
+            } else {
+                self.receiveNextMessage()
+            }
+        }
     }
 
     func stopBrowsing() {

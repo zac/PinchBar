@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		112CB0162BB4A56B0073F53D /* RealityKitContent in Frameworks */ = {isa = PBXBuildFile; productRef = 112CB0152BB4A56B0073F53D /* RealityKitContent */; };
 		112CB0182BB4A56B0073F53D /* PinchBarApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 112CB0172BB4A56B0073F53D /* PinchBarApp.swift */; };
 		112CB01A2BB4A56B0073F53D /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 112CB0192BB4A56B0073F53D /* ContentView.swift */; };
 		112CB01C2BB4A56C0073F53D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 112CB01B2BB4A56C0073F53D /* Assets.xcassets */; };
@@ -27,11 +26,36 @@
 		112CB04D2BB544090073F53D /* NWParameters+Init.swift in Sources */ = {isa = PBXBuildFile; fileRef = 112CB0402BB5305E0073F53D /* NWParameters+Init.swift */; };
 		112CB0502BB5CE270073F53D /* TXTRecordKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 112CB04F2BB5CE270073F53D /* TXTRecordKeys.swift */; };
 		112CB0512BB5CE270073F53D /* TXTRecordKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 112CB04F2BB5CE270073F53D /* TXTRecordKeys.swift */; };
+		112CB0542BB5D4790073F53D /* WindowSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 112CB0522BB5D4790073F53D /* WindowSource.swift */; };
+		112CB0562BB5D6080073F53D /* TouchBarWindowSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 112CB0552BB5D6080073F53D /* TouchBarWindowSource.swift */; };
+		112CB0592BB5D6930073F53D /* DFRFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 112CB0582BB5D6930073F53D /* DFRFoundation.framework */; };
+		112CB05A2BB5D6930073F53D /* DFRFoundation.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 112CB0582BB5D6930073F53D /* DFRFoundation.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		112CB05D2BB5D69F0073F53D /* SkyLight.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 112CB05C2BB5D69F0073F53D /* SkyLight.framework */; };
+		112CB05E2BB5D69F0073F53D /* SkyLight.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 112CB05C2BB5D69F0073F53D /* SkyLight.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		112CB0602BB5D8190073F53D /* PeerConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 112CB05F2BB5D8190073F53D /* PeerConnection.swift */; };
+		112CB0612BB5D8190073F53D /* PeerConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 112CB05F2BB5D8190073F53D /* PeerConnection.swift */; };
+		112CB0622BB5D8510073F53D /* WindowSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 112CB0522BB5D4790073F53D /* WindowSource.swift */; };
+		112CB0652BB62F920073F53D /* StreamView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 112CB0642BB62F920073F53D /* StreamView.swift */; };
+		112CB0672BB630220073F53D /* StreamUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 112CB0662BB630220073F53D /* StreamUIView.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		112CB05B2BB5D6930073F53D /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				112CB05A2BB5D6930073F53D /* DFRFoundation.framework in Embed Frameworks */,
+				112CB05E2BB5D69F0073F53D /* SkyLight.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		112CB0102BB4A56B0073F53D /* PinchBar.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PinchBar.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		112CB0142BB4A56B0073F53D /* RealityKitContent */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = RealityKitContent; sourceTree = "<group>"; };
 		112CB0172BB4A56B0073F53D /* PinchBarApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinchBarApp.swift; sourceTree = "<group>"; };
 		112CB0192BB4A56B0073F53D /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		112CB01B2BB4A56C0073F53D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -48,6 +72,14 @@
 		112CB0422BB530810073F53D /* PinchBarProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinchBarProtocol.swift; sourceTree = "<group>"; };
 		112CB04A2BB536790073F53D /* Client.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Client.swift; sourceTree = "<group>"; };
 		112CB04F2BB5CE270073F53D /* TXTRecordKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TXTRecordKeys.swift; sourceTree = "<group>"; };
+		112CB0522BB5D4790073F53D /* WindowSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowSource.swift; sourceTree = "<group>"; };
+		112CB0552BB5D6080073F53D /* TouchBarWindowSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TouchBarWindowSource.swift; sourceTree = "<group>"; };
+		112CB0572BB5D6320073F53D /* PinchBar-Bridging.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PinchBar-Bridging.h"; sourceTree = "<group>"; };
+		112CB0582BB5D6930073F53D /* DFRFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DFRFoundation.framework; path = ../../../../../System/Library/PrivateFrameworks/DFRFoundation.framework; sourceTree = "<group>"; };
+		112CB05C2BB5D69F0073F53D /* SkyLight.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SkyLight.framework; path = ../../../../../System/Library/PrivateFrameworks/SkyLight.framework; sourceTree = "<group>"; };
+		112CB05F2BB5D8190073F53D /* PeerConnection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PeerConnection.swift; path = Shared/PeerConnection.swift; sourceTree = SOURCE_ROOT; };
+		112CB0642BB62F920073F53D /* StreamView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreamView.swift; sourceTree = "<group>"; };
+		112CB0662BB630220073F53D /* StreamUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreamUIView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,7 +87,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				112CB0162BB4A56B0073F53D /* RealityKitContent in Frameworks */,
 				112CB0492BB536280073F53D /* Transcoding in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -65,6 +96,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				112CB03F2BB4B99A0073F53D /* SwiftIP in Frameworks */,
+				112CB05D2BB5D69F0073F53D /* SkyLight.framework in Frameworks */,
+				112CB0592BB5D6930073F53D /* DFRFoundation.framework in Frameworks */,
 				112CB0462BB5361D0073F53D /* Transcoding in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -77,7 +110,6 @@
 			children = (
 				112CB04E2BB5CD0D0073F53D /* Shared */,
 				112CB0122BB4A56B0073F53D /* PinchBar */,
-				112CB0132BB4A56B0073F53D /* Packages */,
 				112CB02B2BB4A5DD0073F53D /* PinchBar Mac */,
 				112CB0112BB4A56B0073F53D /* Products */,
 				112CB0472BB536280073F53D /* Frameworks */,
@@ -98,20 +130,14 @@
 			children = (
 				112CB0172BB4A56B0073F53D /* PinchBarApp.swift */,
 				112CB0192BB4A56B0073F53D /* ContentView.swift */,
+				112CB0642BB62F920073F53D /* StreamView.swift */,
+				112CB0662BB630220073F53D /* StreamUIView.swift */,
 				112CB04A2BB536790073F53D /* Client.swift */,
 				112CB01B2BB4A56C0073F53D /* Assets.xcassets */,
 				112CB0202BB4A56C0073F53D /* Info.plist */,
 				112CB01D2BB4A56C0073F53D /* Preview Content */,
 			);
 			path = PinchBar;
-			sourceTree = "<group>";
-		};
-		112CB0132BB4A56B0073F53D /* Packages */ = {
-			isa = PBXGroup;
-			children = (
-				112CB0142BB4A56B0073F53D /* RealityKitContent */,
-			);
-			path = Packages;
 			sourceTree = "<group>";
 		};
 		112CB01D2BB4A56C0073F53D /* Preview Content */ = {
@@ -125,7 +151,9 @@
 		112CB02B2BB4A5DD0073F53D /* PinchBar Mac */ = {
 			isa = PBXGroup;
 			children = (
+				112CB0572BB5D6320073F53D /* PinchBar-Bridging.h */,
 				112CB02C2BB4A5DD0073F53D /* PinchBar_MacApp.swift */,
+				112CB0552BB5D6080073F53D /* TouchBarWindowSource.swift */,
 				112CB0392BB4A6250073F53D /* MenuBar.swift */,
 				112CB03B2BB4A80F0073F53D /* Server.swift */,
 				112CB0302BB4A5DF0073F53D /* Assets.xcassets */,
@@ -146,6 +174,8 @@
 		112CB0472BB536280073F53D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				112CB05C2BB5D69F0073F53D /* SkyLight.framework */,
+				112CB0582BB5D6930073F53D /* DFRFoundation.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -153,9 +183,11 @@
 		112CB04E2BB5CD0D0073F53D /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				112CB0522BB5D4790073F53D /* WindowSource.swift */,
 				112CB0402BB5305E0073F53D /* NWParameters+Init.swift */,
 				112CB0422BB530810073F53D /* PinchBarProtocol.swift */,
 				112CB04F2BB5CE270073F53D /* TXTRecordKeys.swift */,
+				112CB05F2BB5D8190073F53D /* PeerConnection.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -177,7 +209,6 @@
 			);
 			name = PinchBar;
 			packageProductDependencies = (
-				112CB0152BB4A56B0073F53D /* RealityKitContent */,
 				112CB0482BB536280073F53D /* Transcoding */,
 			);
 			productName = PinchBar;
@@ -191,6 +222,7 @@
 				112CB0262BB4A5DD0073F53D /* Sources */,
 				112CB0272BB4A5DD0073F53D /* Frameworks */,
 				112CB0282BB4A5DD0073F53D /* Resources */,
+				112CB05B2BB5D6930073F53D /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -273,11 +305,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				112CB01A2BB4A56B0073F53D /* ContentView.swift in Sources */,
+				112CB0652BB62F920073F53D /* StreamView.swift in Sources */,
 				112CB0502BB5CE270073F53D /* TXTRecordKeys.swift in Sources */,
 				112CB0182BB4A56B0073F53D /* PinchBarApp.swift in Sources */,
 				112CB04C2BB543D20073F53D /* PinchBarProtocol.swift in Sources */,
 				112CB04B2BB536790073F53D /* Client.swift in Sources */,
+				112CB0672BB630220073F53D /* StreamUIView.swift in Sources */,
 				112CB04D2BB544090073F53D /* NWParameters+Init.swift in Sources */,
+				112CB0622BB5D8510073F53D /* WindowSource.swift in Sources */,
+				112CB0602BB5D8190073F53D /* PeerConnection.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -288,8 +324,11 @@
 				112CB02D2BB4A5DD0073F53D /* PinchBar_MacApp.swift in Sources */,
 				112CB0512BB5CE270073F53D /* TXTRecordKeys.swift in Sources */,
 				112CB03C2BB4A80F0073F53D /* Server.swift in Sources */,
+				112CB0542BB5D4790073F53D /* WindowSource.swift in Sources */,
 				112CB0432BB530820073F53D /* PinchBarProtocol.swift in Sources */,
 				112CB0412BB5305E0073F53D /* NWParameters+Init.swift in Sources */,
+				112CB0612BB5D8190073F53D /* PeerConnection.swift in Sources */,
+				112CB0562BB5D6080073F53D /* TouchBarWindowSource.swift in Sources */,
 				112CB03A2BB4A6250073F53D /* MenuBar.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -495,7 +534,12 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "PinchBar Mac/PinchBar-Bridging.h";
 				SWIFT_VERSION = 5.0;
+				SYSTEM_FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SYSTEM_LIBRARY_DIR)/PrivateFrameworks",
+				);
 			};
 			name = Debug;
 		};
@@ -526,7 +570,12 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "PinchBar Mac/PinchBar-Bridging.h";
 				SWIFT_VERSION = 5.0;
+				SYSTEM_FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SYSTEM_LIBRARY_DIR)/PrivateFrameworks",
+				);
 			};
 			name = Release;
 		};
@@ -582,10 +631,6 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		112CB0152BB4A56B0073F53D /* RealityKitContent */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = RealityKitContent;
-		};
 		112CB03E2BB4B99A0073F53D /* SwiftIP */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 112CB03D2BB4B99A0073F53D /* XCRemoteSwiftPackageReference "SwiftIP" */;
