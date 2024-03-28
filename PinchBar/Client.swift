@@ -15,7 +15,21 @@ extension Logger {
 
 struct ServerInfo: Hashable {
     var name: String {
-        result.endpoint.debugDescription
+        guard case let .bonjour(txt) = result.metadata, let name = txt[TXTRecordKeys.name] else {
+            Logger.client.warning("could not get name from metadata: \(result.metadata.debugDescription)")
+            return result.endpoint.debugDescription
+        }
+
+        return name
+    }
+
+    var peerID: UUID {
+        guard let txt = result.endpoint.txtRecord, let peerID = txt[TXTRecordKeys.peer_id], let uuid = UUID(uuidString: peerID) else {
+            Logger.client.warning("could not get peerID from endpoint: \(result.endpoint.debugDescription)")
+            return UUID()
+        }
+
+        return uuid
     }
 
     let result: NWBrowser.Result
@@ -45,11 +59,10 @@ class Client {
             browser.cancel()
         }
 
-        let params = NWParameters()
-        params.includePeerToPeer = true
-        params.requiredInterfaceType = .wifi
+        servers.removeAll()
 
-        let browser = NWBrowser(for: .bonjour(type: "_pinchbar._tcp", domain: nil), using: params)
+        let params = NWParameters(secret: "1234", identity: "abcd")
+        let browser = NWBrowser(for: .bonjourWithTXTRecord(type: "_pinchbar._tcp", domain: nil), using: params)
 
         browser.stateUpdateHandler = { [weak self] state in
             guard let self else { return }
@@ -60,6 +73,8 @@ class Client {
                 self.startBrowsing()
             case .ready:
                 self.status = .browsing
+            case .cancelled:
+                self.servers.removeAll()
             default:
                 break
             }

@@ -38,9 +38,10 @@ extension NWParameters {
 
         self.init(tls: tlsOptions, tcp: tcpOptions)
 
+        self.requiredInterfaceType = .wifi
         self.includePeerToPeer = true
 
-        let customProtocol = NWProtocolFramer.Options(definition: AnnexBProtocol.definition)
+        let customProtocol = NWProtocolFramer.Options(definition: PinchBarProtocol.definition)
         self.defaultProtocolStack.applicationProtocols.insert(customProtocol, at: 0)
     }
 }

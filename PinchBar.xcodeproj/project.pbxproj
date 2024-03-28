@@ -19,10 +19,14 @@
 		112CB03C2BB4A80F0073F53D /* Server.swift in Sources */ = {isa = PBXBuildFile; fileRef = 112CB03B2BB4A80F0073F53D /* Server.swift */; };
 		112CB03F2BB4B99A0073F53D /* SwiftIP in Frameworks */ = {isa = PBXBuildFile; productRef = 112CB03E2BB4B99A0073F53D /* SwiftIP */; };
 		112CB0412BB5305E0073F53D /* NWParameters+Init.swift in Sources */ = {isa = PBXBuildFile; fileRef = 112CB0402BB5305E0073F53D /* NWParameters+Init.swift */; };
-		112CB0432BB530820073F53D /* AnnexBProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 112CB0422BB530810073F53D /* AnnexBProtocol.swift */; };
+		112CB0432BB530820073F53D /* PinchBarProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 112CB0422BB530810073F53D /* PinchBarProtocol.swift */; };
 		112CB0462BB5361D0073F53D /* Transcoding in Frameworks */ = {isa = PBXBuildFile; productRef = 112CB0452BB5361D0073F53D /* Transcoding */; };
 		112CB0492BB536280073F53D /* Transcoding in Frameworks */ = {isa = PBXBuildFile; productRef = 112CB0482BB536280073F53D /* Transcoding */; };
 		112CB04B2BB536790073F53D /* Client.swift in Sources */ = {isa = PBXBuildFile; fileRef = 112CB04A2BB536790073F53D /* Client.swift */; };
+		112CB04C2BB543D20073F53D /* PinchBarProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 112CB0422BB530810073F53D /* PinchBarProtocol.swift */; };
+		112CB04D2BB544090073F53D /* NWParameters+Init.swift in Sources */ = {isa = PBXBuildFile; fileRef = 112CB0402BB5305E0073F53D /* NWParameters+Init.swift */; };
+		112CB0502BB5CE270073F53D /* TXTRecordKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 112CB04F2BB5CE270073F53D /* TXTRecordKeys.swift */; };
+		112CB0512BB5CE270073F53D /* TXTRecordKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 112CB04F2BB5CE270073F53D /* TXTRecordKeys.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -41,8 +45,9 @@
 		112CB0392BB4A6250073F53D /* MenuBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBar.swift; sourceTree = "<group>"; };
 		112CB03B2BB4A80F0073F53D /* Server.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Server.swift; sourceTree = "<group>"; };
 		112CB0402BB5305E0073F53D /* NWParameters+Init.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NWParameters+Init.swift"; sourceTree = "<group>"; };
-		112CB0422BB530810073F53D /* AnnexBProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnexBProtocol.swift; sourceTree = "<group>"; };
+		112CB0422BB530810073F53D /* PinchBarProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinchBarProtocol.swift; sourceTree = "<group>"; };
 		112CB04A2BB536790073F53D /* Client.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Client.swift; sourceTree = "<group>"; };
+		112CB04F2BB5CE270073F53D /* TXTRecordKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TXTRecordKeys.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -70,6 +75,7 @@
 		112CB0072BB4A56B0073F53D = {
 			isa = PBXGroup;
 			children = (
+				112CB04E2BB5CD0D0073F53D /* Shared */,
 				112CB0122BB4A56B0073F53D /* PinchBar */,
 				112CB0132BB4A56B0073F53D /* Packages */,
 				112CB02B2BB4A5DD0073F53D /* PinchBar Mac */,
@@ -122,8 +128,6 @@
 				112CB02C2BB4A5DD0073F53D /* PinchBar_MacApp.swift */,
 				112CB0392BB4A6250073F53D /* MenuBar.swift */,
 				112CB03B2BB4A80F0073F53D /* Server.swift */,
-				112CB0402BB5305E0073F53D /* NWParameters+Init.swift */,
-				112CB0422BB530810073F53D /* AnnexBProtocol.swift */,
 				112CB0302BB4A5DF0073F53D /* Assets.xcassets */,
 				112CB0352BB4A5DF0073F53D /* PinchBar_Mac.entitlements */,
 				112CB0322BB4A5DF0073F53D /* Preview Content */,
@@ -144,6 +148,16 @@
 			children = (
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		112CB04E2BB5CD0D0073F53D /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				112CB0402BB5305E0073F53D /* NWParameters+Init.swift */,
+				112CB0422BB530810073F53D /* PinchBarProtocol.swift */,
+				112CB04F2BB5CE270073F53D /* TXTRecordKeys.swift */,
+			);
+			path = Shared;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -259,8 +273,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				112CB01A2BB4A56B0073F53D /* ContentView.swift in Sources */,
+				112CB0502BB5CE270073F53D /* TXTRecordKeys.swift in Sources */,
 				112CB0182BB4A56B0073F53D /* PinchBarApp.swift in Sources */,
+				112CB04C2BB543D20073F53D /* PinchBarProtocol.swift in Sources */,
 				112CB04B2BB536790073F53D /* Client.swift in Sources */,
+				112CB04D2BB544090073F53D /* NWParameters+Init.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -269,8 +286,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				112CB02D2BB4A5DD0073F53D /* PinchBar_MacApp.swift in Sources */,
+				112CB0512BB5CE270073F53D /* TXTRecordKeys.swift in Sources */,
 				112CB03C2BB4A80F0073F53D /* Server.swift in Sources */,
-				112CB0432BB530820073F53D /* AnnexBProtocol.swift in Sources */,
+				112CB0432BB530820073F53D /* PinchBarProtocol.swift in Sources */,
 				112CB0412BB5305E0073F53D /* NWParameters+Init.swift in Sources */,
 				112CB03A2BB4A6250073F53D /* MenuBar.swift in Sources */,
 			);

@@ -43,7 +43,8 @@ class Server {
     }
 
     private(set) var status: Status = .disconnected
-    private let peerId: String = Host.current().localizedName ?? UUID().uuidString
+    private let peerId: UUID = UUID()
+    private let name: String = Host.current().localizedName ?? "No Name"
 
     private var listener: NWListener?
     private var connection: NWConnection?
@@ -68,7 +69,11 @@ class Server {
 
         self.listener = listener
 
-        listener.service = NWListener.Service(name: peerId, type: "_pinchbar._tcp")
+        var txtRecord = NWTXTRecord()
+        txtRecord[TXTRecordKeys.name] = name
+        txtRecord[TXTRecordKeys.peer_id] = peerId.uuidString
+
+        listener.service = NWListener.Service(type: "_pinchbar._tcp", txtRecord: txtRecord)
 
         listener.stateUpdateHandler = { [weak self] state in
             guard let self else { return }
