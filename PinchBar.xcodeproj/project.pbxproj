@@ -18,6 +18,8 @@
 		112CB03A2BB4A6250073F53D /* MenuBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 112CB0392BB4A6250073F53D /* MenuBar.swift */; };
 		112CB03C2BB4A80F0073F53D /* Server.swift in Sources */ = {isa = PBXBuildFile; fileRef = 112CB03B2BB4A80F0073F53D /* Server.swift */; };
 		112CB03F2BB4B99A0073F53D /* SwiftIP in Frameworks */ = {isa = PBXBuildFile; productRef = 112CB03E2BB4B99A0073F53D /* SwiftIP */; };
+		112CB0412BB5305E0073F53D /* NWParameters+Init.swift in Sources */ = {isa = PBXBuildFile; fileRef = 112CB0402BB5305E0073F53D /* NWParameters+Init.swift */; };
+		112CB0432BB530820073F53D /* AnnexBProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 112CB0422BB530810073F53D /* AnnexBProtocol.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,6 +37,8 @@
 		112CB0352BB4A5DF0073F53D /* PinchBar_Mac.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PinchBar_Mac.entitlements; sourceTree = "<group>"; };
 		112CB0392BB4A6250073F53D /* MenuBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBar.swift; sourceTree = "<group>"; };
 		112CB03B2BB4A80F0073F53D /* Server.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Server.swift; sourceTree = "<group>"; };
+		112CB0402BB5305E0073F53D /* NWParameters+Init.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NWParameters+Init.swift"; sourceTree = "<group>"; };
+		112CB0422BB530810073F53D /* AnnexBProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnexBProtocol.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,6 +114,8 @@
 				112CB02C2BB4A5DD0073F53D /* PinchBar_MacApp.swift */,
 				112CB0392BB4A6250073F53D /* MenuBar.swift */,
 				112CB03B2BB4A80F0073F53D /* Server.swift */,
+				112CB0402BB5305E0073F53D /* NWParameters+Init.swift */,
+				112CB0422BB530810073F53D /* AnnexBProtocol.swift */,
 				112CB0302BB4A5DF0073F53D /* Assets.xcassets */,
 				112CB0352BB4A5DF0073F53D /* PinchBar_Mac.entitlements */,
 				112CB0322BB4A5DF0073F53D /* Preview Content */,
@@ -245,6 +251,8 @@
 			files = (
 				112CB02D2BB4A5DD0073F53D /* PinchBar_MacApp.swift in Sources */,
 				112CB03C2BB4A80F0073F53D /* Server.swift in Sources */,
+				112CB0432BB530820073F53D /* AnnexBProtocol.swift in Sources */,
+				112CB0412BB5305E0073F53D /* NWParameters+Init.swift in Sources */,
 				112CB03A2BB4A6250073F53D /* MenuBar.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
