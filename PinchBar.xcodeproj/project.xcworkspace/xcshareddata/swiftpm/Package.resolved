@@ -1,0 +1,14 @@
+{
+  "pins" : [
+    {
+      "identity" : "swiftip",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Samasaur1/SwiftIP.git",
+      "state" : {
+        "revision" : "6c788e2d34ad93f786abaf4fbb69662a9e045276",
+        "version" : "2.2.2"
+      }
+    }
+  ],
+  "version" : 2
+}

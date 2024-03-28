@@ -12,6 +12,12 @@
 		112CB01A2BB4A56B0073F53D /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 112CB0192BB4A56B0073F53D /* ContentView.swift */; };
 		112CB01C2BB4A56C0073F53D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 112CB01B2BB4A56C0073F53D /* Assets.xcassets */; };
 		112CB01F2BB4A56C0073F53D /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 112CB01E2BB4A56C0073F53D /* Preview Assets.xcassets */; };
+		112CB02D2BB4A5DD0073F53D /* PinchBar_MacApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 112CB02C2BB4A5DD0073F53D /* PinchBar_MacApp.swift */; };
+		112CB0312BB4A5DF0073F53D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 112CB0302BB4A5DF0073F53D /* Assets.xcassets */; };
+		112CB0342BB4A5DF0073F53D /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 112CB0332BB4A5DF0073F53D /* Preview Assets.xcassets */; };
+		112CB03A2BB4A6250073F53D /* MenuBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 112CB0392BB4A6250073F53D /* MenuBar.swift */; };
+		112CB03C2BB4A80F0073F53D /* Server.swift in Sources */ = {isa = PBXBuildFile; fileRef = 112CB03B2BB4A80F0073F53D /* Server.swift */; };
+		112CB03F2BB4B99A0073F53D /* SwiftIP in Frameworks */ = {isa = PBXBuildFile; productRef = 112CB03E2BB4B99A0073F53D /* SwiftIP */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +28,13 @@
 		112CB01B2BB4A56C0073F53D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		112CB01E2BB4A56C0073F53D /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		112CB0202BB4A56C0073F53D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		112CB02A2BB4A5DD0073F53D /* PinchBar Mac.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "PinchBar Mac.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		112CB02C2BB4A5DD0073F53D /* PinchBar_MacApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinchBar_MacApp.swift; sourceTree = "<group>"; };
+		112CB0302BB4A5DF0073F53D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		112CB0332BB4A5DF0073F53D /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		112CB0352BB4A5DF0073F53D /* PinchBar_Mac.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PinchBar_Mac.entitlements; sourceTree = "<group>"; };
+		112CB0392BB4A6250073F53D /* MenuBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBar.swift; sourceTree = "<group>"; };
+		112CB03B2BB4A80F0073F53D /* Server.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Server.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -33,6 +46,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		112CB0272BB4A5DD0073F53D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				112CB03F2BB4B99A0073F53D /* SwiftIP in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -41,6 +62,7 @@
 			children = (
 				112CB0122BB4A56B0073F53D /* PinchBar */,
 				112CB0132BB4A56B0073F53D /* Packages */,
+				112CB02B2BB4A5DD0073F53D /* PinchBar Mac */,
 				112CB0112BB4A56B0073F53D /* Products */,
 			);
 			sourceTree = "<group>";
@@ -49,6 +71,7 @@
 			isa = PBXGroup;
 			children = (
 				112CB0102BB4A56B0073F53D /* PinchBar.app */,
+				112CB02A2BB4A5DD0073F53D /* PinchBar Mac.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -81,6 +104,27 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
+		112CB02B2BB4A5DD0073F53D /* PinchBar Mac */ = {
+			isa = PBXGroup;
+			children = (
+				112CB02C2BB4A5DD0073F53D /* PinchBar_MacApp.swift */,
+				112CB0392BB4A6250073F53D /* MenuBar.swift */,
+				112CB03B2BB4A80F0073F53D /* Server.swift */,
+				112CB0302BB4A5DF0073F53D /* Assets.xcassets */,
+				112CB0352BB4A5DF0073F53D /* PinchBar_Mac.entitlements */,
+				112CB0322BB4A5DF0073F53D /* Preview Content */,
+			);
+			path = "PinchBar Mac";
+			sourceTree = "<group>";
+		};
+		112CB0322BB4A5DF0073F53D /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				112CB0332BB4A5DF0073F53D /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -104,6 +148,26 @@
 			productReference = 112CB0102BB4A56B0073F53D /* PinchBar.app */;
 			productType = "com.apple.product-type.application";
 		};
+		112CB0292BB4A5DD0073F53D /* PinchBar Mac */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 112CB0362BB4A5DF0073F53D /* Build configuration list for PBXNativeTarget "PinchBar Mac" */;
+			buildPhases = (
+				112CB0262BB4A5DD0073F53D /* Sources */,
+				112CB0272BB4A5DD0073F53D /* Frameworks */,
+				112CB0282BB4A5DD0073F53D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "PinchBar Mac";
+			packageProductDependencies = (
+				112CB03E2BB4B99A0073F53D /* SwiftIP */,
+			);
+			productName = "PinchBar Mac";
+			productReference = 112CB02A2BB4A5DD0073F53D /* PinchBar Mac.app */;
+			productType = "com.apple.product-type.application";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -117,6 +181,9 @@
 					112CB00F2BB4A56B0073F53D = {
 						CreatedOnToolsVersion = 15.2;
 					};
+					112CB0292BB4A5DD0073F53D = {
+						CreatedOnToolsVersion = 15.2;
+					};
 				};
 			};
 			buildConfigurationList = 112CB00B2BB4A56B0073F53D /* Build configuration list for PBXProject "PinchBar" */;
@@ -128,11 +195,15 @@
 				Base,
 			);
 			mainGroup = 112CB0072BB4A56B0073F53D;
+			packageReferences = (
+				112CB03D2BB4B99A0073F53D /* XCRemoteSwiftPackageReference "SwiftIP" */,
+			);
 			productRefGroup = 112CB0112BB4A56B0073F53D /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
 				112CB00F2BB4A56B0073F53D /* PinchBar */,
+				112CB0292BB4A5DD0073F53D /* PinchBar Mac */,
 			);
 		};
 /* End PBXProject section */
@@ -147,6 +218,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		112CB0282BB4A5DD0073F53D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				112CB0342BB4A5DF0073F53D /* Preview Assets.xcassets in Resources */,
+				112CB0312BB4A5DF0073F53D /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -156,6 +236,16 @@
 			files = (
 				112CB01A2BB4A56B0073F53D /* ContentView.swift in Sources */,
 				112CB0182BB4A56B0073F53D /* PinchBarApp.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		112CB0262BB4A5DD0073F53D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				112CB02D2BB4A5DD0073F53D /* PinchBar_MacApp.swift in Sources */,
+				112CB03C2BB4A80F0073F53D /* Server.swift in Sources */,
+				112CB03A2BB4A6250073F53D /* MenuBar.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -333,6 +423,68 @@
 			};
 			name = Release;
 		};
+		112CB0372BB4A5DF0073F53D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "PinchBar Mac/PinchBar_Mac.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"PinchBar Mac/Preview Content\"";
+				DEVELOPMENT_TEAM = 32R66SNDGS;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_LSUIElement = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "PinchBar uses access to your local network to find and discover Vision Pros";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 14.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "io.positron.PinchBar-Mac";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		112CB0382BB4A5DF0073F53D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "PinchBar Mac/PinchBar_Mac.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"PinchBar Mac/Preview Content\"";
+				DEVELOPMENT_TEAM = 32R66SNDGS;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_LSUIElement = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "PinchBar uses access to your local network to find and discover Vision Pros";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 14.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "io.positron.PinchBar-Mac";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -354,12 +506,37 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
+		112CB0362BB4A5DF0073F53D /* Build configuration list for PBXNativeTarget "PinchBar Mac" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				112CB0372BB4A5DF0073F53D /* Debug */,
+				112CB0382BB4A5DF0073F53D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		112CB03D2BB4B99A0073F53D /* XCRemoteSwiftPackageReference "SwiftIP" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Samasaur1/SwiftIP.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
 		112CB0152BB4A56B0073F53D /* RealityKitContent */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = RealityKitContent;
+		};
+		112CB03E2BB4B99A0073F53D /* SwiftIP */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 112CB03D2BB4B99A0073F53D /* XCRemoteSwiftPackageReference "SwiftIP" */;
+			productName = SwiftIP;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
