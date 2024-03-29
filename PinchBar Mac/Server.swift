@@ -48,7 +48,7 @@ class Server {
     private let name: String = Host.current().localizedName ?? "No Name"
 
     private var listener: NWListener?
-    private var connection: NWConnection?
+    private(set) var connection: NWConnection?
 
     private let windowSource: TouchBarWindowSource = TouchBarWindowSource()
     private let videoEncoder = VideoEncoder(config: .ultraLowLatency)
@@ -68,20 +68,22 @@ class Server {
     func startAdvertising() {
         if let connection {
             connection.cancel()
+            self.connection = nil
         }
-
-        connection = nil
 
         if let listener {
             listener.cancel()
+            self.listener = nil
         }
 
         if let captureTask {
             captureTask.cancel()
+            self.captureTask = nil
         }
 
         if let videoEncoderTask {
             videoEncoderTask.cancel()
+            self.videoEncoderTask = nil
         }
 
         guard let listener = try? NWListener(using: NWParameters(passcode: "1234")) else {
@@ -131,14 +133,14 @@ class Server {
             self.connection = connection
 
             connection.start(queue: .main)
-
-            self.startStreaming()
+            self.waitForConnection()
         }
 
         listener.start(queue: .main)
     }
 
-    private func startStreaming() {
+    private func waitForConnection() {
+        Logger.server.trace("startStreaming()")
 
         guard let connection else { return }
 
@@ -158,13 +160,16 @@ class Server {
                 break
             }
         }
+    }
 
-        captureTask = Task { @MainActor [weak self] in
+    private func startStreaming() {
+        windowSource.startCapture()
+
+        captureTask = Task { [weak self] in
             guard let self else { return }
-            try await windowSource.startCapture()
-            // Replace `captureSession.pixelBuffers` with your video data source
             for await frame in windowSource.frames {
-                videoEncoder.encode(frame.data)
+                videoEncoder.encode(frame.buffer.cvPxelBuffer)
+                Logger.server.trace("encoded new frame")
             }
         }
 
@@ -177,6 +182,8 @@ class Server {
                     identifier: "NewFrame",
                     metadata: [message]
                 )
+
+                Logger.server.trace("sending new frame message with data length: \(data.count)")
 
                 self.connection?.send(content: data, contentContext: context, isComplete: true, completion: .idempotent)
             }

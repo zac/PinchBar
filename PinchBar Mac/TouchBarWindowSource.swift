@@ -18,10 +18,12 @@ extension Logger {
 
 class TouchBarWindowSource: WindowSource {
 
-    private var stream: CGDisplayStream?
+    private var stream: CGDisplayStream!
     private var simulator: DFRTouchBarSimulator?
+    private var touchBar: DFRTouchBar!
 
     let frames: AsyncStream<Frame>
+    private let queue = DispatchQueue(label: "io.positron.PinchBar.bufferProcessingQueue", qos: .userInitiated)
     private let streamContinuation: AsyncStream<Frame>.Continuation
 
     init() {
@@ -29,20 +31,19 @@ class TouchBarWindowSource: WindowSource {
         (frames, streamContinuation) = AsyncStream<Frame>.makeStream()
     }
 
-
-    func startCapture() async throws {
+    func startCapture() {
         Logger.frame.trace("startCapture()")
 
-        self.simulator = DFRTouchBarSimulatorCreate(.init(rawValue: 3), 0, .init(rawValue: 3));
-        let touchBar = DFRTouchBarSimulatorGetTouchBar(simulator)
+        simulator = DFRTouchBarSimulatorCreate(.init(rawValue: 3), 0, .init(rawValue: 3));
+        touchBar = DFRTouchBarSimulatorGetTouchBar(simulator)
 
         stream = DFRTouchBarCreateDisplayStream(touchBar, 0, .main, { [weak self] status, displayTime, frameSurface, update in
-            guard
-                let self = self,
-                status == .frameComplete
-            else {
+            guard let self, status == .frameComplete else {
+                Logger.frame.trace("status: \(status.rawValue)")
                 return
             }
+
+            Logger.frame.trace("got frame: \(displayTime)")
 
             var rectCount: Int = 0
             var allRects: [CGRect] = []
@@ -52,23 +53,27 @@ class TouchBarWindowSource: WindowSource {
                 }
             }
 
-            do {
-                if let sample = try frameSurface?.cmSampleBuffer {
-                    streamContinuation.yield(
-                        .init(
-                            data: sample,
-                            metadata: .init(frameCount: displayTime, dirtyRects: [])
+            queue.async { [weak self] in
+                guard let self else { return }
+                do {
+                    if let surface = frameSurface {
+                        streamContinuation.yield(
+                            .init(
+                                buffer: try PixelBuffer(surface),
+                                metadata: .init(frameCount: displayTime, dirtyRects: [])
+                            )
                         )
-                    )
+                    }
+                } catch {
+                    Logger.frame.error("Could not create cmSampleBuffer: \(error)")
                 }
-            } catch {
-                Logger.frame.error("Could not create cmSampleBuffer: \(error)")
             }
-        }).takeUnretainedValue()
+        }).takeRetainedValue()
 
         Logger.frame.debug("stream \(self.stream.debugDescription)")
-        if let error = stream?.start() {
-            Logger.frame.error("\(String(describing: error))")
+
+        if stream.start() != CGError(rawValue: 0) {
+            Logger.frame.error("error strarting stream")
         }
     }
 

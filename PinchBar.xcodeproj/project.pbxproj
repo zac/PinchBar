@@ -30,13 +30,15 @@
 		112CB0562BB5D6080073F53D /* TouchBarWindowSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 112CB0552BB5D6080073F53D /* TouchBarWindowSource.swift */; };
 		112CB0592BB5D6930073F53D /* DFRFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 112CB0582BB5D6930073F53D /* DFRFoundation.framework */; };
 		112CB05A2BB5D6930073F53D /* DFRFoundation.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 112CB0582BB5D6930073F53D /* DFRFoundation.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		112CB05D2BB5D69F0073F53D /* SkyLight.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 112CB05C2BB5D69F0073F53D /* SkyLight.framework */; };
-		112CB05E2BB5D69F0073F53D /* SkyLight.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 112CB05C2BB5D69F0073F53D /* SkyLight.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		112CB0602BB5D8190073F53D /* PeerConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 112CB05F2BB5D8190073F53D /* PeerConnection.swift */; };
 		112CB0612BB5D8190073F53D /* PeerConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 112CB05F2BB5D8190073F53D /* PeerConnection.swift */; };
 		112CB0622BB5D8510073F53D /* WindowSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 112CB0522BB5D4790073F53D /* WindowSource.swift */; };
 		112CB0652BB62F920073F53D /* StreamView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 112CB0642BB62F920073F53D /* StreamView.swift */; };
 		112CB0672BB630220073F53D /* StreamUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 112CB0662BB630220073F53D /* StreamUIView.swift */; };
+		112CB06C2BB71D990073F53D /* SkyLight.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 112CB05C2BB5D69F0073F53D /* SkyLight.framework */; };
+		112CB06D2BB71D990073F53D /* SkyLight.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 112CB05C2BB5D69F0073F53D /* SkyLight.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		112CB06F2BB722C30073F53D /* PixelBuffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 112CB06E2BB722C30073F53D /* PixelBuffer.swift */; };
+		112CB0702BB722C30073F53D /* PixelBuffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 112CB06E2BB722C30073F53D /* PixelBuffer.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -47,7 +49,7 @@
 			dstSubfolderSpec = 10;
 			files = (
 				112CB05A2BB5D6930073F53D /* DFRFoundation.framework in Embed Frameworks */,
-				112CB05E2BB5D69F0073F53D /* SkyLight.framework in Embed Frameworks */,
+				112CB06D2BB71D990073F53D /* SkyLight.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -80,6 +82,7 @@
 		112CB05F2BB5D8190073F53D /* PeerConnection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PeerConnection.swift; path = Shared/PeerConnection.swift; sourceTree = SOURCE_ROOT; };
 		112CB0642BB62F920073F53D /* StreamView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreamView.swift; sourceTree = "<group>"; };
 		112CB0662BB630220073F53D /* StreamUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreamUIView.swift; sourceTree = "<group>"; };
+		112CB06E2BB722C30073F53D /* PixelBuffer.swift */ = {isa = PBXFileReference; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = PixelBuffer.swift; sourceTree = "<group>"; tabWidth = 2; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,7 +99,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				112CB03F2BB4B99A0073F53D /* SwiftIP in Frameworks */,
-				112CB05D2BB5D69F0073F53D /* SkyLight.framework in Frameworks */,
+				112CB06C2BB71D990073F53D /* SkyLight.framework in Frameworks */,
 				112CB0592BB5D6930073F53D /* DFRFoundation.framework in Frameworks */,
 				112CB0462BB5361D0073F53D /* Transcoding in Frameworks */,
 			);
@@ -184,6 +187,7 @@
 			isa = PBXGroup;
 			children = (
 				112CB0522BB5D4790073F53D /* WindowSource.swift */,
+				112CB06E2BB722C30073F53D /* PixelBuffer.swift */,
 				112CB0402BB5305E0073F53D /* NWParameters+Init.swift */,
 				112CB0422BB530810073F53D /* PinchBarProtocol.swift */,
 				112CB04F2BB5CE270073F53D /* TXTRecordKeys.swift */,
@@ -313,6 +317,7 @@
 				112CB0672BB630220073F53D /* StreamUIView.swift in Sources */,
 				112CB04D2BB544090073F53D /* NWParameters+Init.swift in Sources */,
 				112CB0622BB5D8510073F53D /* WindowSource.swift in Sources */,
+				112CB06F2BB722C30073F53D /* PixelBuffer.swift in Sources */,
 				112CB0602BB5D8190073F53D /* PeerConnection.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -323,6 +328,7 @@
 			files = (
 				112CB02D2BB4A5DD0073F53D /* PinchBar_MacApp.swift in Sources */,
 				112CB0512BB5CE270073F53D /* TXTRecordKeys.swift in Sources */,
+				112CB0702BB722C30073F53D /* PixelBuffer.swift in Sources */,
 				112CB03C2BB4A80F0073F53D /* Server.swift in Sources */,
 				112CB0542BB5D4790073F53D /* WindowSource.swift in Sources */,
 				112CB0432BB530820073F53D /* PinchBarProtocol.swift in Sources */,

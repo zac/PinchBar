@@ -15,7 +15,7 @@ struct Frame {
         var dirtyRects: [CGRect]
     }
 
-    var data: CMSampleBuffer
+    var buffer: PixelBuffer
     var metadata: Metadata
 }
 

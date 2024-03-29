@@ -99,10 +99,12 @@ class Client {
     func startBrowsing() {
         if let connection {
             connection.cancel()
+            self.connection = nil
         }
 
         if let browser {
             browser.cancel()
+            self.browser = nil
         }
 
         servers.removeAll()
@@ -121,8 +123,6 @@ class Client {
                 self.startBrowsing()
             case .ready:
                 self.status = .browsing
-            case .cancelled:
-                self.servers.removeAll()
             default:
                 break
             }
@@ -140,7 +140,10 @@ class Client {
         stopBrowsing()
 
         // connect to the server.
-        let connection = NWConnection(to: server.result.endpoint, using: NWParameters(passcode: "1234"))
+        let connection = NWConnection(
+            to: server.result.endpoint,
+            using: NWParameters(passcode: "1234")
+        )
 
         connection.stateUpdateHandler = { [weak self] state in
             guard let self else { return }
@@ -151,8 +154,8 @@ class Client {
             case .ready:
                 self.status = .connected
                 self.receiveNextMessage()
-            case .cancelled:
-                connection.cancel()
+            case .failed:
+                self.disconnect()
             default:
                 break
             }
@@ -162,14 +165,15 @@ class Client {
             guard let self else { return }
             Logger.client.trace("videoDecoderTask enter")
             for await decodedSampleBuffer in videoDecoder.decodedSampleBuffers {
+                try? decodedSampleBuffer.setOutputPresentationTimeStamp(CMClockGetTime(.hostTimeClock))
                 frameContinuation.yield(decodedSampleBuffer)
             }
             Logger.client.trace("videoDecoderTask exit")
         }
 
-        connection.start(queue: .main)
-
         self.connection = connection
+
+        connection.start(queue: .main)
     }
 
     func disconnect() {

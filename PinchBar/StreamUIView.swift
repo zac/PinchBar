@@ -65,7 +65,7 @@ class StreamUIView: UIView {
         Logger.video.info("enqueued sample buffer")
         if Thread.isMainThread {
             if let sampleBuffer = sampleBuffer {
-                layer.enqueue(sampleBuffer)
+                layer.sampleBufferRenderer.enqueue(sampleBuffer)
             }
         } else {
             DispatchQueue.main.async {
