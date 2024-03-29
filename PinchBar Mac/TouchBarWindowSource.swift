@@ -20,11 +20,9 @@ class TouchBarWindowSource: WindowSource {
 
     private var stream: CGDisplayStream!
     private var simulator: DFRTouchBarSimulator?
-    private var touchBar: DFRTouchBar!
 
-    let frames: AsyncStream<Frame>
-    private let queue = DispatchQueue(label: "io.positron.PinchBar.bufferProcessingQueue", qos: .userInitiated)
-    private let streamContinuation: AsyncStream<Frame>.Continuation
+    var frames: AsyncStream<Frame>
+    private var streamContinuation: AsyncStream<Frame>.Continuation
 
     init() {
         Logger.frame.trace("TouchBarWindowSource.init()")
@@ -32,10 +30,12 @@ class TouchBarWindowSource: WindowSource {
     }
 
     func startCapture() {
+        (frames, streamContinuation) = AsyncStream<Frame>.makeStream()
+
         Logger.frame.trace("startCapture()")
 
         simulator = DFRTouchBarSimulatorCreate(.init(rawValue: 3), 0, .init(rawValue: 3));
-        touchBar = DFRTouchBarSimulatorGetTouchBar(simulator)
+        let touchBar = DFRTouchBarSimulatorGetTouchBar(simulator)
 
         stream = DFRTouchBarCreateDisplayStream(touchBar, 0, .main, { [weak self] status, displayTime, frameSurface, update in
             guard let self, status == .frameComplete else {
@@ -53,20 +53,17 @@ class TouchBarWindowSource: WindowSource {
                 }
             }
 
-            queue.async { [weak self] in
-                guard let self else { return }
-                do {
-                    if let surface = frameSurface {
-                        streamContinuation.yield(
-                            .init(
-                                buffer: try PixelBuffer(surface),
-                                metadata: .init(frameCount: displayTime, dirtyRects: [])
-                            )
+            do {
+                if let surface = frameSurface {
+                    streamContinuation.yield(
+                        .init(
+                            buffer: try PixelBuffer(surface),
+                            metadata: .init(frameCount: displayTime, dirtyRects: [])
                         )
-                    }
-                } catch {
-                    Logger.frame.error("Could not create cmSampleBuffer: \(error)")
+                    )
                 }
+            } catch {
+                Logger.frame.error("Could not create cmSampleBuffer: \(error)")
             }
         }).takeRetainedValue()
 
@@ -87,41 +84,11 @@ class TouchBarWindowSource: WindowSource {
 
         DFRTouchBarSimulatorInvalidate(simulator)
         self.simulator = nil
+
+        (frames, streamContinuation) = AsyncStream<Frame>.makeStream()
     }
 
     deinit {
         Task { try await stopCapture() }
-    }
-}
-
-enum SampleBufferCreationError: Error {
-    case bufferCreationFailed(OSStatus)
-    case noBuffer
-}
-
-extension IOSurfaceRef {
-    var cmSampleBuffer: CMSampleBuffer {
-        get throws {
-            var pixelBuffer: Unmanaged<CVPixelBuffer>?
-
-            let status = CVPixelBufferCreateWithIOSurface(kCFAllocatorDefault, self, nil, &pixelBuffer)
-
-            if status != kCVReturnSuccess {
-                // Handle error
-                throw SampleBufferCreationError.bufferCreationFailed(status)
-            }
-
-            guard let newPixelBuffer = pixelBuffer else {
-                throw SampleBufferCreationError.noBuffer
-            }
-
-            let format = try CMVideoFormatDescription(imageBuffer: newPixelBuffer.takeUnretainedValue())
-
-            let timing = CMSampleTimingInfo(duration: CMTime.invalid, presentationTimeStamp: CMTime.zero, decodeTimeStamp: CMTime.invalid)
-
-            let buffer = try CMSampleBuffer(imageBuffer: newPixelBuffer.takeUnretainedValue(), formatDescription: format, sampleTiming: timing)
-
-            return buffer
-        }
     }
 }

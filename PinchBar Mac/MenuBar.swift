@@ -38,7 +38,7 @@ struct MenuBar: View {
             case .advertising:
                 Text("Listening…")
             case .connected:
-                Text("Connected to: ...")
+                Text("Connected")
             case .connecting:
                 Text("Connecting…")
             case .disconnected:
@@ -48,17 +48,21 @@ struct MenuBar: View {
             Divider()
 
             Button {
-                if server.status != .advertising {
-                    server.startAdvertising()
-                } else {
+                if server.status == .disconnected {
+                    server.startListening()
+                } else if server.status == .advertising {
+                    server.stopListening()
+                } else if server.status == .connected {
                     server.disconnect()
                 }
             } label: {
                 switch server.status {
-                case .advertising, .connected:
-                    Text("Stop")
+                case .advertising:
+                    Text("Stop Listening")
+                case .connected:
+                    Text("Disconnect")
                 case .disconnected, .connecting:
-                    Text("Start")
+                    Text("Start Listening")
                 }
             }
             .disabled(server.status == .connecting)

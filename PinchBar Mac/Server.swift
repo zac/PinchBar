@@ -65,7 +65,7 @@ class Server {
         return IP.local() ?? "Unknown"
     }
 
-    func startAdvertising() {
+    func startListening() {
         if let connection {
             connection.cancel()
             self.connection = nil
@@ -115,7 +115,7 @@ class Server {
                 self.status = .disconnected
 
                 // retry
-                self.startAdvertising()
+                self.startListening()
             @unknown default:
                 break
             }
@@ -154,6 +154,10 @@ class Server {
                 self.startStreaming()
             case .failed(let error):
                 Logger.server.error("connection failed: \(error.localizedDescription)")
+                if error.errorCode == ECONNRESET {
+                    // go back to disconnected.
+                    self.disconnect()
+                }
             case .cancelled:
                 self.disconnect()
             @unknown default:
@@ -167,14 +171,18 @@ class Server {
 
         captureTask = Task { [weak self] in
             guard let self else { return }
+            Logger.server.trace("captureTask enter")
             for await frame in windowSource.frames {
                 videoEncoder.encode(frame.buffer.cvPxelBuffer)
                 Logger.server.trace("encoded new frame")
             }
+            Logger.server.trace("captureTask exit")
         }
 
         videoEncoderTask = Task { [weak self] in
             guard let self else { return }
+            Logger.server.trace("videoEncoderTask enter")
+
             for await data in videoEncoderAnnexBAdaptor.annexBData {
 
                 let message = NWProtocolFramer.Message(messageType: .newFrame)
@@ -187,6 +195,17 @@ class Server {
 
                 self.connection?.send(content: data, contentContext: context, isComplete: true, completion: .idempotent)
             }
+
+            Logger.server.trace("videoEncoderTask exit")
+        }
+    }
+
+    func stopListening() {
+        listener?.cancel()
+        listener = nil
+
+        if connection == nil {
+            status = .disconnected
         }
     }
 
@@ -202,9 +221,11 @@ class Server {
 
         connection?.cancel()
         connection = nil
-        listener?.cancel()
-        listener = nil
 
-        status = .disconnected
+        if listener == nil {
+            status = .disconnected
+        } else {
+            status = .advertising
+        }
     }
 }
