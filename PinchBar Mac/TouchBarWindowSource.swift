@@ -74,6 +74,18 @@ class TouchBarWindowSource: WindowSource {
         }
     }
 
+    func perform(event: MouseEvent) {
+        guard let simulator else { return }
+
+        let size = DFRGetScreenSize()
+        let adjustedPoint = NSPoint(
+            x: size.width * event.location.x,
+            y: size.height * event.location.y
+        )
+
+        DFRTouchBarSimulatorPostEventWithMouseActivity(simulator, event.type.nsEventType, adjustedPoint)
+    }
+
     func stopCapture() async throws {
         guard let stream else {
             return
@@ -90,5 +102,18 @@ class TouchBarWindowSource: WindowSource {
 
     deinit {
         Task { try await stopCapture() }
+    }
+}
+
+extension MouseEvent.EventType {
+    var nsEventType: NSEvent.EventType {
+        switch self {
+        case .down:
+            return .leftMouseDown
+        case .dragged:
+            return .leftMouseDragged
+        case .up:
+            return .leftMouseUp
+        }
     }
 }

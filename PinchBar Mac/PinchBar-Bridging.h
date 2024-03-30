@@ -37,6 +37,8 @@ BOOL DFRTouchBarSimulatorPostEventWithMouseActivity(DFRTouchBarSimulator*, NSEve
 
 CGDisplayStreamRef DFRTouchBarCreateDisplayStream(DFRTouchBar *touchBar, int displayID, dispatch_queue_t queue, CGDisplayStreamFrameAvailableHandler handler);
 
+CGSize DFRGetScreenSize();
+
 void DFRTouchBarSimulatorInvalidate(DFRTouchBarSimulator*);
 
 #endif /* PinchBar_Bridging_h */

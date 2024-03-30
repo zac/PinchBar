@@ -8,6 +8,17 @@
 import Foundation
 import CoreMedia
 
+struct MouseEvent: Codable {
+    enum EventType: Int, Codable {
+        case down
+        case dragged
+        case up
+    }
+
+    var type: EventType
+    var location: CGPoint
+}
+
 struct Frame {
 
     struct Metadata {
@@ -24,6 +35,8 @@ protocol WindowSource {
 
     func startCapture() async throws
     func stopCapture() async throws
+
+    func perform(event: MouseEvent)
 }
 
 struct AnyWindowSource: WindowSource {
@@ -39,5 +52,9 @@ struct AnyWindowSource: WindowSource {
 
     func stopCapture() async throws {
         try await base.stopCapture()
+    }
+
+    func perform(event: MouseEvent) {
+        base.perform(event: event)
     }
 }

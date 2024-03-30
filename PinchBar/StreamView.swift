@@ -15,6 +15,8 @@ struct StreamView: UIViewRepresentable {
     @State var videoGravity: AVLayerVideoGravity
     @State var frames: AsyncStream<CMSampleBuffer>
 
+    var touches: (UITouch) -> Void = { _ in }
+
     func makeCoordinator() -> Coordinator {
         Coordinator(videoGravity: videoGravity, frames: frames)
     }
@@ -36,6 +38,7 @@ struct StreamView: UIViewRepresentable {
     func updateUIView(_ uiView: StreamUIView, context: Context) {
         uiView.videoGravity = context.coordinator.videoGravity
         uiView.frames = context.coordinator.frames
+        uiView.touches = touches
     }
 }
 //

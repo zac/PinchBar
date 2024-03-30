@@ -10,6 +10,7 @@ import Network
 import os
 import Transcoding
 import CoreMedia
+import UIKit
 
 extension Logger {
     static let client = Logger(subsystem: "io.positron.PinchBar", category: "Client")
@@ -137,8 +138,6 @@ class Client {
     }
 
     func connect(to server: ServerInfo) {
-        stopBrowsing()
-
         // connect to the server.
         let connection = NWConnection(
             to: server.result.endpoint,
@@ -183,7 +182,21 @@ class Client {
         }
 
         videoDecoderTask?.cancel()
-        startBrowsing()
+    }
+
+    func sendTouch(_ uiTouch: UITouch) {
+        guard let connection else { return }
+        guard let data = try? JSONEncoder().encode(MouseEvent(uiTouch)) else { return }
+
+        let message = NWProtocolFramer.Message(messageType: .control)
+        let context = NWConnection.ContentContext(
+            identifier: "NewFrame",
+            metadata: [message]
+        )
+
+        Logger.client.trace("sending control message with data length: \(data.count)")
+
+        connection.send(content: data, contentContext: context, isComplete: true, completion: .idempotent)
     }
 
     func receiveNextMessage() {
@@ -214,5 +227,33 @@ class Client {
         browser = nil
 
         status = .disconnected
+    }
+}
+
+extension MouseEvent {
+    init(_ uiTouch: UITouch) {
+        let type: MouseEvent.EventType
+        switch uiTouch.phase {
+        case .began:
+            type = .down
+        case .moved:
+            type = .dragged
+        case .ended:
+            type = .up
+        default:
+            type = .up
+        }
+
+        guard let view = uiTouch.view else {
+            fatalError()
+        }
+
+        let point = uiTouch.location(in: view)
+        let adjustedPoint = CGPoint(
+            x: point.x / view.frame.width,
+            y: point.y / view.frame.height
+        )
+
+        self = MouseEvent(type: type, location: adjustedPoint)
     }
 }

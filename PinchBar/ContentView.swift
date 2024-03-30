@@ -42,7 +42,8 @@ struct ContentView: View {
                 }
             }
 
-            StreamView(videoGravity: .resizeAspect, frames: client.frames)
+            StreamView(videoGravity: .resizeAspect, frames: client.frames, touches: client.sendTouch)
+                .frame(height: 60)
         }
         .padding()
         .toolbar {

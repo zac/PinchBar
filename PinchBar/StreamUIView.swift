@@ -36,6 +36,8 @@ class StreamUIView: UIView {
         }
     }
 
+    public var touches: (UITouch) -> Void = { _ in }
+
     public var frames: AsyncStream<CMSampleBuffer>? {
         didSet {
             if let frames {
@@ -59,6 +61,21 @@ class StreamUIView: UIView {
         backgroundColor = Self.defaultBackgroundColor
         layer.backgroundColor = Self.defaultBackgroundColor.cgColor
         layer.videoGravity = videoGravity
+    }
+
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        guard let touch = touches.first else { return }
+        self.touches(touch)
+    }
+
+    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+        guard let touch = touches.first else { return }
+        self.touches(touch)
+    }
+
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        guard let touch = touches.first else { return }
+        self.touches(touch)
     }
 
     func enqueue(_ sampleBuffer: CMSampleBuffer?) {

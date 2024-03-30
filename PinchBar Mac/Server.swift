@@ -166,7 +166,45 @@ class Server {
         }
     }
 
+    private func receiveNextMessage() {
+        guard let connection else { return }
+
+        // handle input messages
+        connection.receiveMessage { [weak self] content, context, isComplete, error in
+            guard let self else { return }
+
+            Logger.server.log("connection.receiveMessage")
+            // Extract your message type from the received context.
+            if let message = context?.protocolMetadata(definition: PinchBarProtocol.definition) as? NWProtocolFramer.Message {
+                Logger.server.log("got control command! \(message.messageType.rawValue)")
+                // parse it??
+                if message.messageType == .control, let data = content {
+                    if let mouseEvent = try? JSONDecoder().decode(MouseEvent.self, from: data) {
+                        windowSource.perform(event: mouseEvent)
+                    } else {
+                        Logger.server.log("could not decode data! \(data)")
+                    }
+                } else {
+                    Logger.server.log("message type not control! \(message.messageType.rawValue)")
+                }
+            } else {
+                Logger.server.info("no correct frame data in context: \(context.debugDescription)")
+            }
+
+            if let error {
+                Logger.server.error("receive message error: \(error.localizedDescription)")
+            } else {
+                self.receiveNextMessage()
+            }
+
+        }
+    }
+
     private func startStreaming() {
+
+        // listen for incoming control messages
+        receiveNextMessage()
+
         windowSource.startCapture()
 
         captureTask = Task { [weak self] in
