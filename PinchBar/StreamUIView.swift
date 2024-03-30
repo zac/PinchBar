@@ -43,6 +43,7 @@ class StreamUIView: UIView {
             if let frames {
                 Task { @MainActor in
                     for await frame in frames {
+                        print("frame: \(CVImageBufferGetDisplaySize(frame.imageBuffer!))")
                         enqueue(frame)
                     }
                 }

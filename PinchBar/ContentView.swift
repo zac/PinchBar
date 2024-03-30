@@ -41,11 +41,12 @@ struct ContentView: View {
                     }
                 }
             }
-
             StreamView(videoGravity: .resizeAspect, frames: client.frames, touches: client.sendTouch)
-                .frame(height: 60)
+                .clipShape(RoundedRectangle(cornerRadius: 10))
+                .frame(width: 2008, height: 60)
         }
-        .padding()
+        .padding(.horizontal, 60)
+        .padding(.bottom, 20)
         .toolbar {
             ToolbarItem(placement: .bottomOrnament) {
                 Text(client.status.rawValue)

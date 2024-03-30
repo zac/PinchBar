@@ -13,5 +13,7 @@ struct PinchBarApp: App {
         WindowGroup {
             ContentView()
         }
+        .windowResizability(.contentSize)
+        .windowStyle(.plain)
     }
 }
