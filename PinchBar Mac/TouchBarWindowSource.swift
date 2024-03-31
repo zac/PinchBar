@@ -24,6 +24,9 @@ class TouchBarWindowSource: WindowSource {
     var frames: AsyncStream<Frame>
     private var streamContinuation: AsyncStream<Frame>.Continuation
 
+    private var lastFrame: Frame?
+    private var frameTimer: Timer?
+
     init() {
         Logger.frame.trace("TouchBarWindowSource.init()")
         (frames, streamContinuation) = AsyncStream<Frame>.makeStream()
@@ -36,6 +39,11 @@ class TouchBarWindowSource: WindowSource {
 
         simulator = DFRTouchBarSimulatorCreate(.init(rawValue: 3), 0, .init(rawValue: 3));
         let touchBar = DFRTouchBarSimulatorGetTouchBar(simulator)
+
+        self.frameTimer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true, block: { [weak self] _ in
+            guard let self, let lastFrame else { return }
+            streamContinuation.yield(lastFrame)
+        })
 
         stream = DFRTouchBarCreateDisplayStream(touchBar, 0, .main, { [weak self] status, displayTime, frameSurface, update in
             guard let self, status == .frameComplete else {
@@ -55,12 +63,13 @@ class TouchBarWindowSource: WindowSource {
 
             do {
                 if let surface = frameSurface {
-                    streamContinuation.yield(
-                        .init(
-                            buffer: try PixelBuffer(surface),
-                            metadata: .init(frameCount: displayTime, dirtyRects: [])
-                        )
+                    let frame = Frame(
+                        buffer: try PixelBuffer(surface),
+                        metadata: .init(frameCount: displayTime, dirtyRects: [])
                     )
+
+                    lastFrame = frame
+                    streamContinuation.yield(frame)
                 }
             } catch {
                 Logger.frame.error("Could not create cmSampleBuffer: \(error)")
@@ -93,6 +102,9 @@ class TouchBarWindowSource: WindowSource {
 
         stream.stop()
         self.stream = nil
+
+        frameTimer?.invalidate()
+        frameTimer = nil
 
         DFRTouchBarSimulatorInvalidate(simulator)
         self.simulator = nil

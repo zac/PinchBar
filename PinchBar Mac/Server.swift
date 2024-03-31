@@ -34,15 +34,6 @@ extension NWListener.State {
     }
 }
 
-extension VideoEncoder.Config {
-    static let touchBar = VideoEncoder.Config(
-        quality: 0.75, 
-        prioritizeEncodingSpeedOverQuality: true,
-        realTime: true,
-        enableLowLatencyRateControl: true
-    )
-}
-
 @Observable
 class Server {
     enum Status {
@@ -72,7 +63,7 @@ class Server {
     }
 
     func createVideoEncoder() -> (VideoEncoder, VideoEncoderAnnexBAdaptor) {
-        let videoEncoder = VideoEncoder(config: .touchBar)
+        let videoEncoder = VideoEncoder(config: .ultraLowLatency)
         let videoEncoderAnnexBAdaptor = VideoEncoderAnnexBAdaptor(videoEncoder: videoEncoder)
 
         return (videoEncoder, videoEncoderAnnexBAdaptor)
