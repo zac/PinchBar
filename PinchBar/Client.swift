@@ -70,8 +70,8 @@ class Client {
 
     var servers: [ServerInfo] = []
     var status: Status = .disconnected
-    let frames: AsyncStream<CMSampleBuffer>
-    private let frameContinuation: AsyncStream<CMSampleBuffer>.Continuation
+    let frames: AsyncStream<CMSampleBuffer?>
+    private let frameContinuation: AsyncStream<CMSampleBuffer?>.Continuation
 
     func status(for server: ServerInfo) -> Status {
         guard server.result.endpoint == connection?.endpoint else {
@@ -84,17 +84,23 @@ class Client {
     private var browser: NWBrowser?
     private var connection: NWConnection?
 
-    private let videoDecoder = VideoDecoder(config: .init(realTime: true))
-    private let videoDecoderAnnexBAdaptor: VideoDecoderAnnexBAdaptor
+    private var videoDecoder: VideoDecoder!
+    private var videoDecoderAnnexBAdaptor: VideoDecoderAnnexBAdaptor!
     private var videoDecoderTask: Task<Void, Error>?
 
     init() {
-        videoDecoderAnnexBAdaptor = VideoDecoderAnnexBAdaptor(
+        (frames, frameContinuation) = AsyncStream<CMSampleBuffer?>.makeStream()
+        (videoDecoder, videoDecoderAnnexBAdaptor) = createVideoDecoder()
+    }
+
+    func createVideoDecoder() -> (VideoDecoder, VideoDecoderAnnexBAdaptor) {
+        let videoDecoder = VideoDecoder(config: .init(realTime: true))
+        let videoDecoderAnnexBAdaptor = VideoDecoderAnnexBAdaptor(
             videoDecoder: videoDecoder,
             codec: .hevc
         )
 
-        (frames, frameContinuation) = AsyncStream<CMSampleBuffer>.makeStream()
+        return (videoDecoder, videoDecoderAnnexBAdaptor)
     }
 
     func startBrowsing() {
@@ -160,6 +166,9 @@ class Client {
             }
         }
 
+        // reset the video decoder
+        (videoDecoder, videoDecoderAnnexBAdaptor) = createVideoDecoder()
+
         videoDecoderTask = Task { [weak self] in
             guard let self else { return }
             Logger.client.trace("videoDecoderTask enter")
@@ -181,6 +190,7 @@ class Client {
             self.connection = nil
         }
 
+        frameContinuation.yield(nil)
         videoDecoderTask?.cancel()
     }
 

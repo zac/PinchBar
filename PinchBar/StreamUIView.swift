@@ -38,12 +38,11 @@ class StreamUIView: UIView {
 
     public var touches: (UITouch) -> Void = { _ in }
 
-    public var frames: AsyncStream<CMSampleBuffer>? {
+    public var frames: AsyncStream<CMSampleBuffer?>? {
         didSet {
             if let frames {
                 Task { @MainActor in
                     for await frame in frames {
-                        print("frame: \(CVImageBufferGetDisplaySize(frame.imageBuffer!))")
                         enqueue(frame)
                     }
                 }
@@ -84,6 +83,8 @@ class StreamUIView: UIView {
         if Thread.isMainThread {
             if let sampleBuffer = sampleBuffer {
                 layer.sampleBufferRenderer.enqueue(sampleBuffer)
+            } else {
+                layer.sampleBufferRenderer.flush(removingDisplayedImage: true)
             }
         } else {
             DispatchQueue.main.async {

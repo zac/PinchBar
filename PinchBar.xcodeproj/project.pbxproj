@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		11058FDE2BB8FE2D00FAFFD6 /* Network.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11058FDD2BB8FE2D00FAFFD6 /* Network.framework */; };
 		112CB0182BB4A56B0073F53D /* PinchBarApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 112CB0172BB4A56B0073F53D /* PinchBarApp.swift */; };
 		112CB01A2BB4A56B0073F53D /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 112CB0192BB4A56B0073F53D /* ContentView.swift */; };
 		112CB01C2BB4A56C0073F53D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 112CB01B2BB4A56C0073F53D /* Assets.xcassets */; };
@@ -57,6 +58,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		11058FDD2BB8FE2D00FAFFD6 /* Network.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Network.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk/System/Library/Frameworks/Network.framework; sourceTree = DEVELOPER_DIR; };
 		112CB0102BB4A56B0073F53D /* PinchBar.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PinchBar.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		112CB0172BB4A56B0073F53D /* PinchBarApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinchBarApp.swift; sourceTree = "<group>"; };
 		112CB0192BB4A56B0073F53D /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -102,6 +104,7 @@
 				112CB06C2BB71D990073F53D /* SkyLight.framework in Frameworks */,
 				112CB0592BB5D6930073F53D /* DFRFoundation.framework in Frameworks */,
 				112CB0462BB5361D0073F53D /* Transcoding in Frameworks */,
+				11058FDE2BB8FE2D00FAFFD6 /* Network.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -177,6 +180,7 @@
 		112CB0472BB536280073F53D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				11058FDD2BB8FE2D00FAFFD6 /* Network.framework */,
 				112CB05C2BB5D69F0073F53D /* SkyLight.framework */,
 				112CB0582BB5D6930073F53D /* DFRFoundation.framework */,
 			);

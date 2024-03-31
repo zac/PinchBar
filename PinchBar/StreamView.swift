@@ -12,8 +12,8 @@ import CoreMedia
 struct StreamView: UIViewRepresentable {
     typealias UIViewType = StreamUIView
 
-    @State var videoGravity: AVLayerVideoGravity
-    @State var frames: AsyncStream<CMSampleBuffer>
+    var videoGravity: AVLayerVideoGravity
+    var frames: AsyncStream<CMSampleBuffer?>
 
     var touches: (UITouch) -> Void = { _ in }
 
@@ -23,9 +23,9 @@ struct StreamView: UIViewRepresentable {
 
     class Coordinator {
         var videoGravity: AVLayerVideoGravity
-        var frames: AsyncStream<CMSampleBuffer>
+        var frames: AsyncStream<CMSampleBuffer?>
 
-        init(videoGravity: AVLayerVideoGravity = .resizeAspect, frames: AsyncStream<CMSampleBuffer>) {
+        init(videoGravity: AVLayerVideoGravity = .resizeAspect, frames: AsyncStream<CMSampleBuffer?>) {
             self.videoGravity = videoGravity
             self.frames = frames
         }

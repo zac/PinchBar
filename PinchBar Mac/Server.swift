@@ -34,6 +34,15 @@ extension NWListener.State {
     }
 }
 
+extension VideoEncoder.Config {
+    static let touchBar = VideoEncoder.Config(
+        quality: 0.75, 
+        prioritizeEncodingSpeedOverQuality: true,
+        realTime: true,
+        enableLowLatencyRateControl: true
+    )
+}
+
 @Observable
 class Server {
     enum Status {
@@ -51,14 +60,22 @@ class Server {
     private(set) var connection: NWConnection?
 
     private let windowSource: TouchBarWindowSource = TouchBarWindowSource()
-    private let videoEncoder = VideoEncoder(config: .ultraLowLatency)
-    private var videoEncoderAnnexBAdaptor: VideoEncoderAnnexBAdaptor
+
+    private var videoEncoder: VideoEncoder!
+    private var videoEncoderAnnexBAdaptor: VideoEncoderAnnexBAdaptor!
 
     private var captureTask: Task<Void, Error>?
     private var videoEncoderTask: Task<Void, Error>?
 
     init() {
-        videoEncoderAnnexBAdaptor = VideoEncoderAnnexBAdaptor(videoEncoder: videoEncoder)
+        (videoEncoder, videoEncoderAnnexBAdaptor) = createVideoEncoder()
+    }
+
+    func createVideoEncoder() -> (VideoEncoder, VideoEncoderAnnexBAdaptor) {
+        let videoEncoder = VideoEncoder(config: .touchBar)
+        let videoEncoderAnnexBAdaptor = VideoEncoderAnnexBAdaptor(videoEncoder: videoEncoder)
+
+        return (videoEncoder, videoEncoderAnnexBAdaptor)
     }
 
     var localIP: String {
@@ -207,6 +224,9 @@ class Server {
 
         windowSource.startCapture()
 
+        // set up the encoder again
+        (videoEncoder, videoEncoderAnnexBAdaptor) = createVideoEncoder()
+
         captureTask = Task { [weak self] in
             guard let self else { return }
             Logger.server.trace("captureTask enter")
@@ -248,14 +268,12 @@ class Server {
     }
 
     func disconnect() {
-        Task {
-            captureTask?.cancel()
-            captureTask = nil
-            try await windowSource.stopCapture()
+        captureTask?.cancel()
+        captureTask = nil
+        windowSource.stopCapture()
 
-            videoEncoderTask?.cancel()
-            videoEncoderTask = nil
-        }
+        videoEncoderTask?.cancel()
+        videoEncoderTask = nil
 
         connection?.cancel()
         connection = nil
