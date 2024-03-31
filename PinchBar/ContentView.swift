@@ -46,17 +46,12 @@ struct ContentView: View {
                         }
                     }
                     .padding()
-                    .frame(width: 400, height: 600)
+                    .frame(width: 400, height: 200)
                 })
             }
         }
         .padding(.horizontal, 60)
         .padding(.bottom, 20)
-//        .toolbar {
-//            ToolbarItem(placement: .bottomOrnament) {
-//                Text(client.status.rawValue)
-//            }
-//        }
         .onAppear {
             client.startBrowsing()
         }
