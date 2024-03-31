@@ -21,3 +21,4 @@ https://github.com/zac/PinchBar/assets/2525/6766aa1b-7fa6-4375-a0c1-68c0fc679597
 ## Acknowledgements
 - Thanks to Daniel Jalkut's [Touché](https://redsweater.com/touche/) for the inspiration.
 - Thanks to @finnvoor's [Transcoding](https://github.com/finnvoor/Transcoding) for the video encoding / decoding implementation.
+- Thanks to @jslegendre's [TouchBar-Simulator](https://github.com/jslegendre/TouchBar-Simulator) for defining the undocumented APIs to get frames from the TouchBar simulator.
